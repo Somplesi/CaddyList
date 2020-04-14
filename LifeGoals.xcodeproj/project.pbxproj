@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2661C7F244581B90088E5A9 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2661C7E244581B90088E5A9 /* CloudKit.framework */; };
+		A26A133D24430D1700B74263 /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26A133C24430D1700B74263 /* PersistentContainer.swift */; };
 		A2C73B34243F44150029C81C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C73B33243F44150029C81C /* AppDelegate.swift */; };
 		A2C73B36243F44150029C81C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C73B35243F44150029C81C /* SceneDelegate.swift */; };
 		A2C73B38243F44150029C81C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C73B37243F44150029C81C /* ViewController.swift */; };
@@ -17,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A2661C7C244581B10088E5A9 /* LifeGoals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LifeGoals.entitlements; sourceTree = "<group>"; };
+		A2661C7E244581B90088E5A9 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		A26A133C24430D1700B74263 /* PersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainer.swift; sourceTree = "<group>"; };
 		A2C73B30243F44150029C81C /* LifeGoals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeGoals.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C73B33243F44150029C81C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2C73B35243F44150029C81C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,17 +38,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2661C7F244581B90088E5A9 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A2661C7D244581B90088E5A9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A2661C7E244581B90088E5A9 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A2C73B27243F44150029C81C = {
 			isa = PBXGroup;
 			children = (
 				A2C73B32243F44150029C81C /* LifeGoals */,
 				A2C73B31243F44150029C81C /* Products */,
+				A2661C7D244581B90088E5A9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +73,7 @@
 		A2C73B32243F44150029C81C /* LifeGoals */ = {
 			isa = PBXGroup;
 			children = (
+				A2661C7C244581B10088E5A9 /* LifeGoals.entitlements */,
 				A2C73B33243F44150029C81C /* AppDelegate.swift */,
 				A2C73B35243F44150029C81C /* SceneDelegate.swift */,
 				A2C73B37243F44150029C81C /* ViewController.swift */,
@@ -66,6 +82,7 @@
 				A2C73B41243F44190029C81C /* LaunchScreen.storyboard */,
 				A2C73B44243F44190029C81C /* Info.plist */,
 				A2C73B3C243F44150029C81C /* LifeGoals.xcdatamodeld */,
+				A26A133C24430D1700B74263 /* PersistentContainer.swift */,
 			);
 			path = LifeGoals;
 			sourceTree = "<group>";
@@ -143,6 +160,7 @@
 			files = (
 				A2C73B3E243F44150029C81C /* LifeGoals.xcdatamodeld in Sources */,
 				A2C73B38243F44150029C81C /* ViewController.swift in Sources */,
+				A26A133D24430D1700B74263 /* PersistentContainer.swift in Sources */,
 				A2C73B34243F44150029C81C /* AppDelegate.swift in Sources */,
 				A2C73B36243F44150029C81C /* SceneDelegate.swift in Sources */,
 			);
@@ -288,6 +306,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LifeGoals/LifeGoals.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3DZAHM87N2;
 				INFOPLIST_FILE = LifeGoals/Info.plist;
@@ -306,6 +325,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LifeGoals/LifeGoals.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3DZAHM87N2;
 				INFOPLIST_FILE = LifeGoals/Info.plist;
