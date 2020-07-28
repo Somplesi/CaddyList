@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:LifeGoals.xcodeproj">
+      location = "self:/Users/rodolphedupuy/Documents/SWIFT/LifeGoals/CaddyList.xcodeproj">
    </FileRef>
 </Workspace>
