@@ -1,6 +1,6 @@
 //
 //  CoreDataCloudDeclaration.swift
-//  LifeGoals
+//  CaddyList
 //
 //  Created by Rodolphe DUPUY on 28/07/2020.
 //  Copyright © 2020 Rodolphe DUPUY. All rights reserved.
@@ -19,7 +19,7 @@ class CoreDataCloudDeclaration {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentCloudKitContainer(name: "LifeGoals")
+        let container = NSPersistentCloudKitContainer(name: "CaddyList")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.

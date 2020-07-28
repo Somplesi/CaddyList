@@ -1,13 +1,13 @@
 //
 //  AppDelegate.swift
-//  LifeGoals
+//  CaddyList
 //
 //  Created by Rodolphe DUPUY on 09/04/2020.
 //  Copyright © 2020 Rodolphe DUPUY. All rights reserved.
 //
 
 import UIKit
-//import CoreData
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

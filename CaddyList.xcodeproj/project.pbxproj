@@ -10,12 +10,11 @@
 		A2661C7F244581B90088E5A9 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2661C7E244581B90088E5A9 /* CloudKit.framework */; };
 		A26A133D24430D1700B74263 /* PersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26A133C24430D1700B74263 /* PersistentContainer.swift */; };
 		A2BE5D5A24D0861C00D0BD66 /* CoreDataCloudDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BE5D5924D0861C00D0BD66 /* CoreDataCloudDeclaration.swift */; };
-		A2BE5D5C24D0914E00D0BD66 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2BE5D5B24D0914E00D0BD66 /* Default-568h@2x.png */; };
 		A2C73B34243F44150029C81C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C73B33243F44150029C81C /* AppDelegate.swift */; };
 		A2C73B36243F44150029C81C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C73B35243F44150029C81C /* SceneDelegate.swift */; };
 		A2C73B38243F44150029C81C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C73B37243F44150029C81C /* ViewController.swift */; };
 		A2C73B3B243F44150029C81C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2C73B39243F44150029C81C /* Main.storyboard */; };
-		A2C73B3E243F44150029C81C /* LifeGoals.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A2C73B3C243F44150029C81C /* LifeGoals.xcdatamodeld */; };
+		A2C73B3E243F44150029C81C /* CaddyList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A2C73B3C243F44150029C81C /* CaddyList.xcdatamodeld */; };
 		A2C73B40243F44190029C81C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2C73B3F243F44190029C81C /* Assets.xcassets */; };
 		A2C73B43243F44190029C81C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2C73B41243F44190029C81C /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -25,12 +24,11 @@
 		A2661C7E244581B90088E5A9 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		A26A133C24430D1700B74263 /* PersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainer.swift; sourceTree = "<group>"; };
 		A2BE5D5924D0861C00D0BD66 /* CoreDataCloudDeclaration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataCloudDeclaration.swift; sourceTree = "<group>"; };
-		A2BE5D5B24D0914E00D0BD66 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		A2BE5D5E24D0988000D0BD66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A2C73B30243F44150029C81C /* CaddyList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaddyList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2C73B33243F44150029C81C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2C73B35243F44150029C81C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A2C73B37243F44150029C81C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		A2C73B3A243F44150029C81C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A2C73B3D243F44150029C81C /* LifeGoals.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LifeGoals.xcdatamodel; sourceTree = "<group>"; };
 		A2C73B3F243F44190029C81C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A2C73B42243F44190029C81C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -60,7 +58,6 @@
 		A2C73B27243F44150029C81C = {
 			isa = PBXGroup;
 			children = (
-				A2BE5D5B24D0914E00D0BD66 /* Default-568h@2x.png */,
 				A2C73B32243F44150029C81C /* CaddyList */,
 				A2C73B31243F44150029C81C /* Products */,
 				A2661C7D244581B90088E5A9 /* Frameworks */,
@@ -88,7 +85,7 @@
 				A2C73B3F243F44190029C81C /* Assets.xcassets */,
 				A2C73B41243F44190029C81C /* LaunchScreen.storyboard */,
 				A2C73B44243F44190029C81C /* Info.plist */,
-				A2C73B3C243F44150029C81C /* LifeGoals.xcdatamodeld */,
+				A2C73B3C243F44150029C81C /* CaddyList.xcdatamodeld */,
 			);
 			path = CaddyList;
 			sourceTree = "<group>";
@@ -152,7 +149,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2C73B43243F44190029C81C /* LaunchScreen.storyboard in Resources */,
-				A2BE5D5C24D0914E00D0BD66 /* Default-568h@2x.png in Resources */,
 				A2C73B40243F44190029C81C /* Assets.xcassets in Resources */,
 				A2C73B3B243F44150029C81C /* Main.storyboard in Resources */,
 			);
@@ -165,7 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2C73B3E243F44150029C81C /* LifeGoals.xcdatamodeld in Sources */,
+				A2C73B3E243F44150029C81C /* CaddyList.xcdatamodeld in Sources */,
 				A2C73B38243F44150029C81C /* ViewController.swift in Sources */,
 				A26A133D24430D1700B74263 /* PersistentContainer.swift in Sources */,
 				A2BE5D5A24D0861C00D0BD66 /* CoreDataCloudDeclaration.swift in Sources */,
@@ -180,7 +176,7 @@
 		A2C73B39243F44150029C81C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				A2C73B3A243F44150029C81C /* Base */,
+				A2BE5D5E24D0988000D0BD66 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -378,13 +374,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		A2C73B3C243F44150029C81C /* LifeGoals.xcdatamodeld */ = {
+		A2C73B3C243F44150029C81C /* CaddyList.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				A2C73B3D243F44150029C81C /* LifeGoals.xcdatamodel */,
 			);
 			currentVersion = A2C73B3D243F44150029C81C /* LifeGoals.xcdatamodel */;
-			path = LifeGoals.xcdatamodeld;
+			path = CaddyList.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

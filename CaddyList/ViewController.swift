@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  LifeGoals
+//  CaddyList
 //
 //  Created by Rodolphe DUPUY on 09/04/2020.
 //  Copyright © 2020 Rodolphe DUPUY. All rights reserved.
@@ -18,7 +18,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
     
     @IBOutlet weak var outlet_TextInput: UITextField!
     @IBOutlet weak var outlet_TableView: UITableView!
-    @IBOutlet weak var displayChoose: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
