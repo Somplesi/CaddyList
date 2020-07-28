@@ -13,7 +13,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
     
     var itemArray = [ToDoItem]()    // Internal Table sync with CoreData directly
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    //let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let context = CoreDataCloudDeclaration.persistentContainer.viewContext
     
     @IBOutlet weak var outlet_TextInput: UITextField!
     @IBOutlet weak var outlet_TableView: UITableView!
@@ -45,14 +46,12 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
     
     @IBAction func clearButton(_ sender: UIBarButtonItem) {
         for index in 0..<itemArray.count {
-            itemArray[index].highLighted = false
+            if itemArray[index].done == true {
+                itemArray[index].highLighted = false
+            }
             itemArray[index].done = false
         }
         saveItems()
-    }
-    
-    @IBAction func displayList(_ sender: UISegmentedControl) {
-        outlet_TableView.reloadData()
     }
     
     //MARK: - These TableView DataSource Methods are mandatories "required" by protocole of UITableViewDataSource (see Help)
@@ -67,31 +66,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         let cell=tableView.dequeueReusableCell(withIdentifier: "uiCellTable", for: indexPath)
         let item = itemArray[indexPath.row]
         // Display List
-//        if displayChoose.selectedSegmentIndex == 0 {
-            // Fill the text into TableView
-            cell.textLabel?.text = item.itemLifeGoals
-            // Check or UnCheck
-            cell.accessoryType = item.done ? .checkmark : .none
-            // HighLight or not
-            cell.textLabel?.isEnabled = item.highLighted
-//            if item.highLighted == true {
-//                //cell.backgroundColor = .blue
-//                cell.textLabel?.isEnabled = true
-//            } else {
-//                //cell.backgroundColor = .green
-//                cell.textLabel?.isEnabled = false
-//            }
-//        }
-//        if displayChoose.selectedSegmentIndex == 1 && item.highLighted == true && item.done == false {
-//            cell.textLabel?.text = item.itemLifeGoals
-//            cell.accessoryType = .none
-//            cell.textLabel?.isEnabled = item.highLighted
-//        }
-//        if displayChoose.selectedSegmentIndex == 2 && item.highLighted == true && item.done == true {
-//            cell.textLabel?.text = item.itemLifeGoals
-//            cell.accessoryType = .checkmark
-//            cell.textLabel?.isEnabled = item.highLighted
-//        }
+        //        if displayChoose.selectedSegmentIndex == 0 {
+        // Fill the text into TableView
+        cell.textLabel?.text = item.itemLifeGoals
+        // Check or UnCheck
+        cell.accessoryType = item.done ? .checkmark : .none
+        // HighLight or not
+        cell.textLabel?.isEnabled = item.highLighted
         //print("Ligne chargée: \(item.itemLifeGoals!) \(item.done)") // Test
         return cell
     }
@@ -99,6 +80,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
     
     //MARK: Refresh List when scroll down
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        loadItems()
         outlet_TableView.reloadData()
     }
     
@@ -110,10 +92,16 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
             itemArray[indexPath.row].done = false
         } else {
             if itemArray[indexPath.row].highLighted == true {
+                itemArray[indexPath.row].highLighted = false
                 itemArray[indexPath.row].done = true
             } else {
-                itemArray[indexPath.row].highLighted = true
-                itemArray[indexPath.row].done = false
+                if itemArray[indexPath.row].done == true {
+                    itemArray[indexPath.row].highLighted = false
+                    itemArray[indexPath.row].done = false
+                } else {
+                    itemArray[indexPath.row].highLighted = true
+                    itemArray[indexPath.row].done = false
+                }
             }
         }
         // tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
@@ -153,7 +141,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
                 let newItem = ToDoItem(context: self.context)
                 newItem.itemLifeGoals = outlet_TextInput.text!
                 newItem.done = false
-                newItem.highLighted = false
+                newItem.highLighted = true
                 self.itemArray.append(newItem)  // Add line into array & CoreData
                 self.saveItems()
             }
@@ -166,6 +154,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
     //MARK: - Load data
     func loadItems(with request: NSFetchRequest<ToDoItem>=ToDoItem.fetchRequest()) {
         context.automaticallyMergesChangesFromParent = true
+        
+        //request.sortDescriptors = [NSSortDescriptor(key: "itemLifeGoals", ascending: true)]
+        let sortDescriptorHighLighted = NSSortDescriptor(key: "highLighted", ascending: false)
+        let sortDescriptorDone = NSSortDescriptor(key: "done", ascending: false)
+        let sortDescriptorItems = NSSortDescriptor(key: "itemLifeGoals", ascending: true)
+        
+        request.sortDescriptors = [sortDescriptorHighLighted, sortDescriptorDone,sortDescriptorItems]
+        
         do { // into internal table itemArray from CoreData
             itemArray = try context.fetch(request)  // Read CoreData & Load into array
         } catch {

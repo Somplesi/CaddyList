@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyList" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0M-XG-iaM">
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CaddyList" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0M-XG-iaM">
                                 <rect key="frame" x="16" y="20" width="343" height="41"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <nil key="textColor"/>
@@ -38,20 +38,6 @@
                                                 <action selector="editButtonPressed:" destination="BYZ-38-t0r" id="Pku-3V-HVf"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem style="plain" id="E5b-NA-heT">
-                                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="Sss-jN-cS0">
-                                                <rect key="frame" x="56.5" y="5.5" width="196" height="33"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <segments>
-                                                    <segment title="" image="book" catalog="system"/>
-                                                    <segment title="" image="book.fill" catalog="system"/>
-                                                    <segment title="" image="checkmark" catalog="system"/>
-                                                </segments>
-                                                <connections>
-                                                    <action selector="displayList:" destination="BYZ-38-t0r" eventType="valueChanged" id="h82-rf-TFL"/>
-                                                </connections>
-                                            </segmentedControl>
-                                        </barButtonItem>
                                         <barButtonItem systemItem="flexibleSpace" id="iZ6-d9-iP5"/>
                                         <barButtonItem systemItem="refresh" id="UKN-JN-yNG">
                                             <connections>
@@ -68,7 +54,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Object" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="8DF-UM-h6d">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="8DF-UM-h6d">
                                                     <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
@@ -80,45 +66,42 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H3O-xp-XnO">
-                                <rect key="frame" x="0.0" y="125" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="Shopping List" id="Cgo-TG-rM9"/>
-                                </items>
-                            </navigationBar>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appstore" translatesAutoresizingMaskIntoConstraints="NO" id="tEi-IL-zXl">
+                                <rect key="frame" x="309" y="8" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="iiO-5r-9Ti"/>
+                                    <constraint firstAttribute="width" constant="50" id="sX4-Jc-zjh"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="u6E-i7-Y1p" secondAttribute="trailing" constant="20" id="0qq-OU-9cd"/>
                             <constraint firstItem="u6E-i7-Y1p" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="8BU-eS-Mva"/>
-                            <constraint firstItem="H3O-xp-XnO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="AWf-1Z-OfO"/>
                             <constraint firstItem="53J-o6-Lpl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HjA-12-RGe"/>
                             <constraint firstItem="u6E-i7-Y1p" firstAttribute="top" secondItem="Z0M-XG-iaM" secondAttribute="bottom" constant="10" id="PhQ-NJ-5Af"/>
                             <constraint firstItem="53J-o6-Lpl" firstAttribute="top" secondItem="u6E-i7-Y1p" secondAttribute="bottom" constant="20" id="S9k-46-Vyv"/>
                             <constraint firstItem="Z0M-XG-iaM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="XOZ-Jy-KVT"/>
-                            <constraint firstItem="H3O-xp-XnO" firstAttribute="top" secondItem="u6E-i7-Y1p" secondAttribute="bottom" constant="20" id="YFy-4X-Db0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tEi-IL-zXl" secondAttribute="trailing" constant="16" id="Xg9-ka-tqy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="53J-o6-Lpl" secondAttribute="trailing" id="bdT-6E-w45"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="53J-o6-Lpl" secondAttribute="bottom" id="mPE-3s-8PI"/>
                             <constraint firstItem="Z0M-XG-iaM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="nMi-Fw-FVH"/>
-                            <constraint firstItem="H3O-xp-XnO" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="toK-ty-lhs"/>
+                            <constraint firstItem="tEi-IL-zXl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="q64-uv-C8B"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Z0M-XG-iaM" secondAttribute="trailing" constant="16" id="z7A-Sz-8l3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="displayChoose" destination="Sss-jN-cS0" id="qAH-pR-3X2"/>
                         <outlet property="outlet_TableView" destination="53J-o6-Lpl" id="G55-pu-UJD"/>
                         <outlet property="outlet_TextInput" destination="u6E-i7-Y1p" id="qzA-0c-BWQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="139"/>
+            <point key="canvasLocation" x="138.40000000000001" y="138.98050974512745"/>
         </scene>
     </scenes>
     <resources>
-        <image name="book" catalog="system" width="128" height="101"/>
-        <image name="book.fill" catalog="system" width="128" height="100"/>
-        <image name="checkmark" catalog="system" width="128" height="114"/>
+        <image name="appstore" width="1024" height="1024"/>
     </resources>
 </document>

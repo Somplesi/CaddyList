@@ -1,46 +1,18 @@
 //
-//  AppDelegate.swift
+//  CoreDataCloudDeclaration.swift
 //  LifeGoals
 //
-//  Created by Rodolphe DUPUY on 09/04/2020.
+//  Created by Rodolphe DUPUY on 28/07/2020.
 //  Copyright © 2020 Rodolphe DUPUY. All rights reserved.
 //
 
-import UIKit
-//import CoreData
+import CoreData
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class CoreDataCloudDeclaration {
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        return true
-    }
-    
-    func applicationWillTerminate(_ application: UIApplication) {
-
-        //self.saveContext()
-        CoreDataCloudDeclaration.saveContext()
-    }
-
-    // MARK: UISceneSession Lifecycle
-
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-
-    /*
     // MARK: - Core Data stack
 
-    lazy var persistentContainer: NSPersistentCloudKitContainer = {
+    public static var persistentContainer: NSPersistentCloudKitContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
@@ -136,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Core Data Saving support
 
-    func saveContext () {
+    public static func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -149,6 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-*/
+
 }
+
 
