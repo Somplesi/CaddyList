@@ -8,16 +8,20 @@
 
 import UIKit
 import CoreData
+import AVFoundation
 
-class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     var itemArray = [ToDoItem]()    // Internal Table sync with CoreData directly
     
     //let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let context = CoreDataCloudDeclaration.persistentContainer.viewContext
     
+    var refreshControl = UIRefreshControl()
+    
     @IBOutlet weak var outlet_TextInput: UITextField!
     @IBOutlet weak var outlet_TableView: UITableView!
+    @IBOutlet weak var outlet_Logo: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,24 +34,38 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         
         // CoreData READ
         loadItems()
+        
+        // Refresh with animation
+        //refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        outlet_TableView.addSubview(refreshControl) // not required when using UITableViewController
     }
     
-    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
-        //print("Edit button clic")
-        //            tableView.setEditing(true, animated: true)
-        //            tableView.allowsSelectionDuringEditing = true  // Test TableView Edit mode
-        if outlet_TableView.isEditing == true {
-            outlet_TableView.setEditing(false, animated: true)
-        } else {
-            outlet_TableView.setEditing(true, animated: true)
-        }
+    @objc func refresh(_ sender: AnyObject) {
+        // Code to refresh table view
+        loadItems()
+        outlet_TableView.reloadData()
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: { (timer: Timer) in
+            self.refreshControl.endRefreshing()
+        })
     }
+    
+    //    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
+    //        //print("Edit button clic")
+    //        //            tableView.setEditing(true, animated: true)
+    //        //            tableView.allowsSelectionDuringEditing = true  // Test TableView Edit mode
+    //        if outlet_TableView.isEditing == true {
+    //            outlet_TableView.setEditing(false, animated: true)
+    //        } else {
+    //            outlet_TableView.setEditing(true, animated: true)
+    //        }
+    //    }
     
     @IBAction func clearButton(_ sender: UIBarButtonItem) {
         for index in 0..<itemArray.count {
-            if itemArray[index].done == true {
-                itemArray[index].highLighted = false
-            }
+            //if itemArray[index].done == true || itemArray[index].highLighted == true {
+            itemArray[index].highLighted = false
+            //}
             itemArray[index].done = false
         }
         saveItems()
@@ -76,11 +94,17 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         return cell
     }
     
-    
-    //MARK: Refresh List when scroll down
+    //MARK: - Refresh List when scroll
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        loadItems()
-        outlet_TableView.reloadData()
+        //loadItems()
+        //outlet_TableView.reloadData()
+        
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        //scrollView.isScrollEnabled = true
+        //scrollView.alwaysBounceVertical = true
+        //scrollView.refreshControl = UIRefreshControl()
     }
     
     //MARK: - Select a row - TableView Delegate Methods
@@ -109,7 +133,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         saveItems()
     }
     
-    
     //MARK: - Row Moved
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         
@@ -120,7 +143,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         return indexPath.section == 0 ? true : false
     }
     
-    //MARK: Row can move
+    //MARK: - Row can move
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -130,6 +153,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         context.delete(itemArray[indexPath.row])
         itemArray.remove(at: indexPath.row) // Delete line into array using index
         tableView.deleteRows(at: [indexPath], with: .automatic) // with animation
+        AudioServicesPlaySystemSound (1114)
         self.saveItems()
     }
     
@@ -137,16 +161,40 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let charactFill = outlet_TextInput.text?.count { // Check if Input line is filled (method 2)
             if charactFill > 0 {
-                let newItem = ToDoItem(context: self.context)
-                newItem.itemLifeGoals = outlet_TextInput.text!
-                newItem.done = false
-                newItem.highLighted = true
-                self.itemArray.append(newItem)  // Add line into array & CoreData
-                self.saveItems()
+                if duplicatesData(item: outlet_TextInput.text!) == false {
+                    let newItem = ToDoItem(context: self.context)
+                    newItem.itemLifeGoals = outlet_TextInput.text!
+                    newItem.done = false
+                    newItem.highLighted = true
+                    
+                    self.itemArray.append(newItem)  // Add line into array & CoreData
+                    self.saveItems()
+                }
+            } else {
+                textField.resignFirstResponder() // Keyboard off
             }
         }
         outlet_TextInput.text=nil
-        textField.resignFirstResponder() // Keyboard off
+        
+        loadItems()
+        outlet_TableView.reloadData()
+        
+        return false
+    }
+    func duplicatesData(item: String) -> Bool {
+        // Sort Array
+        //        itemArray.sort {
+        //            $0.itemLifeGoals! < $1.itemLifeGoals!
+        //        }
+        // Detect duplicates item
+        for oneItemArray in itemArray {
+            if item == oneItemArray.itemLifeGoals {
+                //let systemSoundID: SystemSoundID =  1114
+                AudioServicesPlaySystemSound (1112)
+                return true
+            }
+        }
+        AudioServicesPlaySystemSound (1113)
         return false
     }
     
