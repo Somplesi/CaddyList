@@ -62,13 +62,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //    }
     
     @IBAction func clearButton(_ sender: UIBarButtonItem) {
-        for index in 0..<itemArray.count {
-            //if itemArray[index].done == true || itemArray[index].highLighted == true {
-            itemArray[index].highLighted = false
-            //}
-            itemArray[index].done = false
-        }
-        saveItems()
+        //        for index in 0..<itemArray.count {
+        //            //if itemArray[index].done == true || itemArray[index].highLighted == true {
+        //            itemArray[index].highLighted = false
+        //            //}
+        //            itemArray[index].done = false
+        //        }
+        //        saveItems()
     }
     
     //MARK: - These TableView DataSource Methods are mandatories "required" by protocole of UITableViewDataSource (see Help)
@@ -79,17 +79,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     //  Fill the value into TableView from internal table ItemArray called for each line - Required by delegation
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell=tableView.dequeueReusableCell(withIdentifier: "uiCellTable", for: indexPath)
         let item = itemArray[indexPath.row]
         // Display List
         //        if displayChoose.selectedSegmentIndex == 0 {
         // Fill the text into TableView
         cell.textLabel?.text = item.itemLifeGoals
+        // Choose Category
+        cell.detailTextLabel?.text = item.category
         // Check or UnCheck
         cell.accessoryType = item.done ? .checkmark : .none
         // HighLight or not
         cell.textLabel?.isEnabled = item.highLighted
+        cell.detailTextLabel?.isEnabled = item.highLighted
         //print("Ligne chargée: \(item.itemLifeGoals!) \(item.done)") // Test
         return cell
     }
@@ -98,7 +100,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         //loadItems()
         //outlet_TableView.reloadData()
-        
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -107,7 +108,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //scrollView.refreshControl = UIRefreshControl()
     }
     
-    //MARK: - Select a row - TableView Delegate Methods
+    //MARK: - Select a row - TableView Methods
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Check or Uncheck line
         if itemArray[indexPath.row].done == true && itemArray[indexPath.row].highLighted == true {
@@ -127,8 +128,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             }
         }
+        AudioServicesPlaySystemSound (1104)
         // tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         tableView.deselectRow(at: indexPath, animated: true)
+        outlet_TextInput.resignFirstResponder()
         // tableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableView.ScrollPosition.top)
         saveItems()
     }
@@ -140,7 +143,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK: - TableView Editable
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.section == 0 ? true : false
+        //return indexPath.section == 0 ? true : false
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
     //MARK: - Row can move
@@ -150,12 +158,65 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK: - Delete management into TableView
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        context.delete(itemArray[indexPath.row])
-        itemArray.remove(at: indexPath.row) // Delete line into array using index
-        tableView.deleteRows(at: [indexPath], with: .automatic) // with animation
-        AudioServicesPlaySystemSound (1114)
-        self.saveItems()
+        if editingStyle == .delete {
+            context.delete(itemArray[indexPath.row])
+            itemArray.remove(at: indexPath.row) // Delete line into array using index
+            tableView.deleteRows(at: [indexPath], with: .automatic) // with animation
+            AudioServicesPlaySystemSound (1155) //1114
+            self.saveItems()
+        }
     }
+    
+    //    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    //        let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, completionHandler) in
+    //            // delete the item here
+    //            completionHandler(true)
+    //        }
+    //        deleteAction.image = UIImage(systemName: "trash")
+    //        deleteAction.backgroundColor = .systemRed
+    //        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+    //                return configuration
+    //    }
+    
+    func tableView(_ tableView: UITableView,
+                   leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let categoryAction = UIContextualAction(style: .normal, title:  "Close", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            var textField = UITextField()
+            // Alert object preparation
+            let alert = UIAlertController(title: self.itemArray[indexPath.row].itemLifeGoals, message: nil, preferredStyle: .alert)
+            alert.setValue(UIImage(systemName: "folder.badge.plus"), forKey: "image")
+            alert.addTextField { (alertTextField) in
+                alertTextField.placeholder = ""
+                textField = alertTextField
+                textField.keyboardType = .default
+                textField.keyboardAppearance = .default
+                textField.autocapitalizationType = .words
+                textField.autocorrectionType = .default
+                textField.returnKeyType = .done
+                textField.text = self.itemArray[indexPath.row].category
+            }
+            // Alert action
+            let action = UIAlertAction(title: "Ok", style: .default) { (action) in
+                //self.context.insert(itemArray[indexPath.row])
+                //if textField.text!.count > 0 {
+                //self.itemArray.append(newItem)
+                self.itemArray[indexPath.row].category = textField.text
+                self.saveItems()
+                self.loadItems()
+                AudioServicesPlaySystemSound (1156)
+                //}
+            }
+            alert.addAction(action)
+            self.outlet_TextInput.resignFirstResponder()
+            self.present(alert, animated: true, completion: nil)
+            success(true)
+        })
+        categoryAction.image = UIImage(systemName: "folder.badge.plus")
+        categoryAction.backgroundColor = .gray
+        return UISwipeActionsConfiguration(actions: [categoryAction])
+    }
+    
     
     //MARK: - Add new Items
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -164,11 +225,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if duplicatesData(item: outlet_TextInput.text!) == false {
                     let newItem = ToDoItem(context: self.context)
                     newItem.itemLifeGoals = outlet_TextInput.text!
+                    newItem.category = ""
                     newItem.done = false
                     newItem.highLighted = true
                     
                     self.itemArray.append(newItem)  // Add line into array & CoreData
                     self.saveItems()
+                    AudioServicesPlaySystemSound (1123) //1113 or 1123
                 }
             } else {
                 textField.resignFirstResponder() // Keyboard off
@@ -177,7 +240,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         outlet_TextInput.text=nil
         
         loadItems()
-        outlet_TableView.reloadData()
+        //outlet_TableView.reloadData()
         
         return false
     }
@@ -194,7 +257,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return true
             }
         }
-        AudioServicesPlaySystemSound (1113)
         return false
     }
     
@@ -204,10 +266,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         //request.sortDescriptors = [NSSortDescriptor(key: "itemLifeGoals", ascending: true)]
         let sortDescriptorHighLighted = NSSortDescriptor(key: "highLighted", ascending: false)
+        let sortDescriptorCategory = NSSortDescriptor(key: "category", ascending: true)
         let sortDescriptorDone = NSSortDescriptor(key: "done", ascending: false)
         let sortDescriptorItems = NSSortDescriptor(key: "itemLifeGoals", ascending: true)
         
-        request.sortDescriptors = [sortDescriptorHighLighted, sortDescriptorDone,sortDescriptorItems]
+        request.sortDescriptors = [sortDescriptorHighLighted, sortDescriptorCategory, sortDescriptorDone,sortDescriptorItems]
         
         do { // into internal table itemArray from CoreData
             itemArray = try context.fetch(request)  // Read CoreData & Load into array
